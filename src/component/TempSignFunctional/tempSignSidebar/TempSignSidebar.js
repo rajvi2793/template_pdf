@@ -41,7 +41,7 @@ function TempSignSidebar({ isOpen, onClose, btnRef, tempSign }) {
     <>
       <div className="inner-functional-container">
         <div className="inner-functional-container-header">
-          <Heading>Template OPTION</Heading>
+          <Heading>Template Template Option</Heading>
         </div>
         <div className="inner-functional-body">
           
