@@ -1,0 +1,129 @@
+/* --------------------- Root Colors    ---------------------------------*/
+:root {
+  --primaryNavColor: #026179;
+  --primaryNavHeight: 75px;
+  --primaryFootertColor: #176b87;
+  --accentBgColor: #eeeeee;
+}
+/*-------------------------------------------------Header--------------------------------------------*/
+.navbar__wrapper-box {
+  background-color: var(--primaryNavColor);
+}
+
+/* -------------NAVBAR----------*/
+
+.nav-link {
+  padding: 20px;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.Hamberger {
+  display: none;
+}
+.login-drawer {
+  width: 70% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .navbar__wrapper-box {
+    height: 68px;
+    width: 100%;
+  }
+
+  .Hamberger {
+    display: block;
+    font-size: 28px;
+    margin-top: 20px;
+    margin-right: 20px;
+  }
+  .nav-link {
+    display: none;
+  }
+  .logo-Conatainer {
+    font-size: 30px !important;
+    margin-left: 20px;
+  }
+
+  .nav-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .nav-mobile-link {
+    border-bottom: 1px solid black;
+    padding: 20px;
+  }
+  .li {
+    font-size: 18px;
+  }
+
+  .login-drawer {
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    display: flex !important;
+    border: 2px solid;
+  }
+}
+
+/*-------------------------------------------------BODY----------------------------------------------*/
+
+.body-wrapper {
+  background-color: var(--accentBgColor);
+}
+
+/*--------------------------------------------------------FOOTER------------------------------------*/
+
+.footer {
+  background-color: #088395;
+  color: #fff;
+  padding: 20px 0;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 200px;
+  min-height: 176px;
+  margin-bottom: 10px;
+}
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links ul li {
+  margin-bottom: 10px;
+}
+
+.footer-links ul li:first-child {
+  color: #043447;
+  font-size: 20px;
+}
+
+.footer-links ul li link {
+  text-decoration: none;
+  color: #fff;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 10px;
+  background-color: var(--primaryFootertColor);
+}

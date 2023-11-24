@@ -1,0 +1,62 @@
+.functional-form {
+  display: flex;
+  flex-direction: column;
+  height: 85vh;
+  width: 75vw;
+
+  align-items: center;
+  gap: 20px;
+  background-color: #eeeeee;
+  margin: auto;
+  margin-top: 15px;
+}
+.temp-upload-btn{
+  height: 35px;
+  width: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: whitesmoke;
+  font-size: 16px;
+  background-color: teal;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+.upload-btn {
+  height: 50px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: whitesmoke;
+  font-size: 22px;
+  background-color: teal;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+.upload-btn:hover {
+  background-color: #2f6359;
+}
+.text-center {
+  color: #0c356a !important;
+}
+
+.Functional-text {
+  color: #176b87;
+}
+
+@media only screen and (max-width: 600px) {
+  .funtional-body-wrapper {
+    display: flex;
+    background-color: #eeeeee;
+    width: 100%;
+    margin-top: 0;
+    min-height: 90vh;
+  }
+  .functional-form {
+    display: flex;
+    gap: 50px;
+  }
+}
