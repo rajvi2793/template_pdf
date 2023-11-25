@@ -60,7 +60,6 @@ export function getNonEmptyPixels(image) {
       const pageHeight = scrollHeight / numPages;
       const currentPage = Math.floor(scrollTop / pageHeight) + 1;
       setCurrentPage(currentPage);
-      console.log(pdfImageSize);
       const adjustedTop = positions[currentPage - 1]?.y +  (scrollTop * pdfImageSize.height) / scrollHeight;
       const updatedpositions = [...positions];
       updatedpositions[currentPage - 1] = {
@@ -202,3 +201,82 @@ export function handleThumbnailClick(pageNumber, mainContainerRef, setCurrentPag
   }
   setCurrentPage(pageNumber);
 }
+
+
+// async function generateSignedPdfForMultipleRecipients(pdfFile, recipientData, numPages) {
+//   try {
+//     const existingPdfBytes = await pdfFile.arrayBuffer();
+//     const pdfDoc = await PDFDocument.load(existingPdfBytes);
+
+//     await Promise.all(recipientData.map(async (recipient) => {
+//       const { pageIndex, position, x, y, drawingDataURL, width, height } = recipient;
+
+//       if (drawingDataURL) {
+//         const base64Data = drawingDataURL[0].split("base64,")[1];
+//         const drawingImageBytes = Uint8Array.from(atob(base64Data), (c) => c.charCodeAt(0));
+
+//         const drawingImage = await pdfDoc.embedPng(drawingImageBytes);
+
+//         const pageIdx = parseInt(pageIndex, 10); // Convert pageIndex to a number
+//         const page = pdfDoc.getPage(pageIdx);
+
+//         if (page) {
+//           const pageWidth = page.getWidth();
+//           const pageHeight = page.getHeight();
+
+//           console.log("page width",pageWidth); // 720
+//           console.log("page height",pageHeight); // 540
+
+//           //h- 970
+//           //w- 5868 
+
+//           const x = position.x;
+//           const y = position.y;
+//           // const y = page.getHeight() - positionData.y - height;
+
+//           // Adjust x and y coordinates based on the page size and signature size
+//           const absoluteX = (x / 100) * pageWidth;
+//           const absoluteY = (y / 100) * pageHeight;
+
+//           // Adjust x and y coordinates based on the signature size
+//           // const adjustedX = absoluteX - (width / 2); 
+//           // const adjustedY = absoluteY - (height / 2);
+
+//           const adjustedX = parseFloat(absoluteX);
+//           const adjustedY = parseFloat(absoluteY);
+
+//           console.log("x in dwnld",x);
+//           console.log("y in dwnld",y);
+
+//           console.log("adjustedX in dwnld", adjustedX);
+//           console.log("adjustedY in dwnld", adjustedY);
+
+//           console.log("Recipient Data:", recipient);
+//           console.log("Drawing Image:", drawingImage);
+
+//           // Ensure width and height are treated as numbers
+//           const imageWidth = parseFloat(width);
+//           const imageHeight = parseFloat(height);
+
+//           page.drawImage(drawingImage, {
+//             x: x,
+//             y: y,
+//             width: imageWidth,
+//             height: imageHeight,
+//           });
+//         }
+//       }
+//     }));
+
+//     const pdfBytes = await pdfDoc.save();
+//     const pdfBlob = new Blob([pdfBytes], { type: 'application/pdf' });
+//     const downloadLink = document.createElement('a');
+//     downloadLink.href = URL.createObjectURL(pdfBlob);
+//     downloadLink.download = 'signed_pdf.pdf';
+//     downloadLink.click();
+//   } catch (error) {
+//     console.error('Error generating signed PDF for multiple recipients:', error);
+//   }
+// }
+
+// export { generateSignedPdfForMultipleRecipients };
