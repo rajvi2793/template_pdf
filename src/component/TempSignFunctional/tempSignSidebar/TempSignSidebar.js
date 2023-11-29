@@ -147,9 +147,7 @@ function TempSignSidebar({ isOpen, onClose, btnRef, tempSign ,genPdf}) {
             </div>
           )}
 
-          <Button onClick={genPdf}>
-            DOWNLOAD
-          </Button>
+          <Button onClick={genPdf}> DOWNLOAD  </Button>
         </div>
         <Drawer
           size="xs"
@@ -162,7 +160,7 @@ function TempSignSidebar({ isOpen, onClose, btnRef, tempSign ,genPdf}) {
           <DrawerCloseButton/>
           <DrawerHeader>Template Option</DrawerHeader>
                 <DrawerBody>
-                  <Button>Download</Button>
+                  <Button onClick={genPdf}>Download</Button>
                 </DrawerBody>
           </DrawerContent>
         </Drawer>

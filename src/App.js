@@ -21,6 +21,7 @@ import Main from "./component/SignpdfFunctional/main/Main";
 import TempMain from "./component/TempateFunctional/templateMain/TempMain";
 import { DragDropProvider } from "./component/TempateFunctional/DragDropContext";
 import TempSignMain from "./component/TempSignFunctional/tempSignMain/TempSignMain";
+import MutipleFileMain from "./component/MutipleFile/mutipleFileMain/MutipleFileMain";
 import { TemplateProvider } from "./component/TempSignFunctional/TemplateSelectContext";
 
 function App() {
@@ -54,7 +55,8 @@ function App() {
         <Route path="/template" element={<TempMain></TempMain>} />
       
         <Route path="/tempSign" element={<TempSignMain></TempSignMain>} />
-        
+
+        <Route path="/multipleFile" element={<MutipleFileMain></MutipleFileMain>} />
       </Routes>
       </TemplateProvider>
       </DragDropProvider>

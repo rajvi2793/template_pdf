@@ -1527,6 +1527,7 @@ function TempSignMain() {
         updatedDrawings[email] = [croppedDrawingDataURL];
         setDrawingData(updatedDrawings);
         setIsDrawingModalOpen(false);
+      
       };
     }
   };
@@ -1595,25 +1596,28 @@ function TempSignMain() {
     const pages = pdfDoc.getPages();
     const element = document.querySelector('.tmpid'); 
     const styles = window.getComputedStyle(element);
+    const widthWithPaddingAndMargin = parseFloat(styles.width); 
     const heightWithPaddingAndMargin = parseFloat(styles.height);
   
     selectedTemplate.tempSidebarRecipients.tempSidebarRecipients.forEach(async (recipient) => {
       const pageIndex = Object.keys(recipient.pagePositions)[0];
       const position = recipient.pagePositions[pageIndex][0];
+        const pageWidth = pages[0].getWidth();
         const pageHeight = pages[0].getHeight();
-      const adjustedWidth = (parseFloat(recipient.size.width) / pdfImageSize.width) * pdfImageRect.width;
-      const adjustedHeight = (parseFloat(recipient.size.height) / pdfImageSize.height) * pdfImageRect.height;
-      const adjustedLeft = (position.x / pdfImageSize.width) * pdfImageRect.width ;
-      // const adjustedTop = (position.y / pdfImageSize.height) * pdfImageRect.height ;
-      const adjustedTop = (heightWithPaddingAndMargin - position.y - parseFloat(adjustedHeight) ) * (pageHeight / heightWithPaddingAndMargin) ;
-  
+      
+      const adjustedWidth = (parseFloat(recipient.size.width) / pdfImageSize.width) * pdfImageRect.width * (pageWidth / widthWithPaddingAndMargin);
+      const adjustedHeight = (parseFloat(recipient.size.height) / pdfImageSize.height) * pdfImageRect.height * (pageHeight / heightWithPaddingAndMargin);
+      const adjustedLeft = (position.x / pdfImageSize.width) * pdfImageRect.width * (pageWidth / widthWithPaddingAndMargin);
+      const tryTop= (position.y / pdfImageSize.height) *pdfImageRect.height;
+      const yRatio= pageHeight/heightWithPaddingAndMargin;
+      const adjustedTop= (heightWithPaddingAndMargin - tryTop - parseFloat(recipient.size.height) ) * yRatio;
+
       const drawingDataURLs = drawingData[recipient.email] || [];
-  
       for (const drawingDataURL of drawingDataURLs) {
         const [, base64Data] = drawingDataURL.split("base64,");
         const drawingImageBytes = new Uint8Array(atob(base64Data).split("").map((char) => char.charCodeAt(0)));
         const drawingImage = await pdfDoc.embedPng(drawingImageBytes);
-  
+        
         pages[pageIndex].drawImage(drawingImage, {
           x: adjustedLeft,
           y: adjustedTop,

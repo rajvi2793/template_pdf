@@ -72,8 +72,6 @@ import { useNavigate } from "react-router-dom";
 import {
   Heading,
 } from "@chakra-ui/react";
-import { useEffect } from "react";
-
 
 function SignPdf() {
   const [pdfFile, setPdfFile] = useState(null);
@@ -104,6 +102,10 @@ function SignPdf() {
     if(tempSign){
       navigate(`/tempSign`,{state:{tempSign : tempSign}});
     }
+  }
+
+  const handleNavigate=()=>{
+    navigate(`/multipleFile`);
   }
 
   
@@ -148,6 +150,8 @@ function SignPdf() {
         <label className="upload-btn" htmlFor="templateSignfile">
            Sign Template 
         </label>
+
+        <button className="upload-btn" onClick={handleNavigate}>Mutiple File</button>
       </form>
     </div>
   );
