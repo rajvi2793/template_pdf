@@ -4,16 +4,17 @@ import {
   Drawer,
   DrawerBody,
   DrawerCloseButton,
-  DrawerContent,
+  
   DrawerHeader,
   DrawerOverlay,
   Flex,
   Heading,
   Spacer,
 } from "@chakra-ui/react";
-import Drawercontent from "../Drawercontent/Drawercontent";
+// import Drawercontent from "../Drawercontent/Drawercontent";
 import { Link } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
+import Cookies from "js-cookie";
 
 function Navbar(props) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -28,6 +29,10 @@ function Navbar(props) {
   };
   const openNavDrawer = () => {
     setIsDrawerOpenNav(true);
+  };
+
+  const handleLogout = () => {
+    Cookies.remove('token');
   };
 
   const closeDrawerNav = () => {
@@ -62,15 +67,25 @@ function Navbar(props) {
             About
           </Link>
           <Link className="nav-link">Services</Link>
-          <Link className="nav-link" onClick={openDrawer}>
+
+          <Link className="nav-link" to="/register">
+            Register
+          </Link>
+
+          <Link className="nav-link" to="/login">
             Login
           </Link>
+
+          <Link className="nav-link" onClick={handleLogout}>
+            Logout
+          </Link>
+
           <Link className="Hamberger" onClick={openNavDrawer}>
             <GiHamburgerMenu></GiHamburgerMenu>
           </Link>
         </Flex>
       </Box>
-
+{/* 
       <Drawer
         isOpen={isDrawerOpen}
         onClose={closeDrawer}
@@ -85,7 +100,7 @@ function Navbar(props) {
             <Drawercontent></Drawercontent>
           </DrawerBody>
         </DrawerContent>
-      </Drawer>
+      </Drawer> */}
 
       <Drawer
         isOpen={isDrawerOpenNav}
@@ -110,9 +125,17 @@ function Navbar(props) {
                 <Link>Service</Link>
               </li>
 
-              <li className="nav-mobile-link">
-                <Link onClick={openDrawer}>Login</Link>
-              </li>
+              <li onClick={closeDrawerNav} className="nav-mobile-link" >
+              <Link to="/register">Register</Link>
+          </li>
+
+          <li onClick={closeDrawerNav} className="nav-mobile-link" >
+           <Link to="/login">Login</Link>
+          </li>
+
+          <li className="nav-mobile-link" onClick={handleLogout}>
+            Logout
+          </li>
             </ul>
           </DrawerBody>
         </DrawerOverlay>

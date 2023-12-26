@@ -23,6 +23,8 @@ import { DragDropProvider } from "./component/TempateFunctional/DragDropContext"
 import TempSignMain from "./component/TempSignFunctional/tempSignMain/TempSignMain";
 import MutipleFileMain from "./component/MutipleFile/mutipleFileMain/MutipleFileMain";
 import { TemplateProvider } from "./component/TempSignFunctional/TemplateSelectContext";
+import Registration from "./component/manageUser/Registration";
+import Login from "./component/manageUser/Login";
 
 function App() {
   return (
@@ -33,6 +35,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>
         <Route path="/about" element={<About />} />
+        <Route path="/register" element={<Registration />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/compress-pdf" element={<CompressPdf></CompressPdf>} />
         <Route path="/edit-pdf" element={<EditPdf />} />
         <Route path="/merge-pdf" element={<ExceltoPdf />} />

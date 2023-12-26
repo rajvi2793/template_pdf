@@ -4,7 +4,7 @@ import {
 import React, { useState, useRef, useEffect } from "react";
 import "./main.css";
 import { AiFillSetting } from "react-icons/ai";
-import { useLocation } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 import Toolbar from "../toolbar/Toolbar";
 import Sidebar from "../sidebar/Sidebar";
 import { pdfjs } from "react-pdf";
@@ -13,7 +13,8 @@ import { generateThumbnails,handleThumbnailClick,getNonEmptyPixels, getCroppingR
 import DrawingOverlay from "../DrawingOverlay/DrawingOverlay";
 import FunctionalSidebar from "../functionalSidebar/FunctionalSidebar";
 import { ProgressBar } from  'react-loader-spinner';
-
+import Cookies from 'js-cookie'; 
+import {variables} from '../../manageUser/Variable'
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -31,7 +32,7 @@ function Main() {
   const [mainContentUrls, setMainContentUrls] = useState([]);
   const pdfImageSize = { width: 0, height: 0 };
   const [isLoading, setIsLoading] = useState(true);
-
+  
   const [positions, setpositions] = useState(
     Array.from({ length: numPages }, () => ({ x: 0, y: 0 }))
   );
@@ -229,9 +230,54 @@ function Main() {
     setpositions(newpositions);
   };
 //for single  
-  const handleGenerateSignedPdf = async () => {
-    generateSignedPdf(pdfFile, drawingData, positions, signatureSize, numPages);
-  };
+const navigate = useNavigate(); 
+
+const handleGenerateSignedPdf = async () => {
+  const token = Cookies.get('token');
+  
+  if (token) {
+    // Include the token in the request headers
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    };
+
+    try {
+      // Example API request with authentication
+      const response = await fetch(variables.TOKEN_URL, {
+        method: 'GET',
+        headers: headers,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data)
+        // Check if the received token matches the one in cookies
+        if (data.message === "Token is valid") {
+          // Tokens match, allow the user to download the PDF
+          generateSignedPdf(pdfFile, drawingData, positions, signatureSize, numPages);
+        } else {
+          // Tokens don't match, redirect to the login page
+          navigate('/login');
+        }
+      } else {
+        // Handle non-200 status code
+        console.error('Error:', response.status);
+        navigate('/login');
+
+      }
+    } catch (error) {
+      // Handle network errors or other exceptions
+      console.error('Error:', error);
+      navigate('/login');
+
+    }
+  } else {
+    // Redirect to the login page or handle authentication absence
+    navigate('/login');
+  }
+};
+
 
   return (
     <>
